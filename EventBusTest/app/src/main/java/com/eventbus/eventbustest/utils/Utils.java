@@ -5,19 +5,19 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
-import com.eventbus.eventbustest.SucApplication;
+import com.eventbus.eventbustest.MyApplication;
 import com.eventbus.eventbustest.configs.ServiceConfig;
 
 /**
- * Created by Chad on 2017/5/24.
+ * Created by Chad .
  * Version 1.0
  */
 
 public class Utils {
 
     public static int checkNetwork() {
-        ConnectivityManager mConnectivity = (ConnectivityManager) SucApplication.getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
-        TelephonyManager mTelephony = (TelephonyManager) SucApplication.getApplication().getSystemService(Context.TELEPHONY_SERVICE);
+        ConnectivityManager mConnectivity = (ConnectivityManager) MyApplication.getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
+        TelephonyManager mTelephony = (TelephonyManager) MyApplication.getApplication().getSystemService(Context.TELEPHONY_SERVICE);
         //检查网络连接，如果无网络可用，就不需要进行连网操作等
         NetworkInfo info = mConnectivity.getActiveNetworkInfo();
         if (info == null || !info.isAvailable()) {

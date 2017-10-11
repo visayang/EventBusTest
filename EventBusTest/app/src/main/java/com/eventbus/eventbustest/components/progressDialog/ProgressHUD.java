@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.eventbus.eventbustest.R;
 
 /**
- * Created by Chad on 2017/5/24.
+ * Created by Chad.
  * Version 1.0
  */
 

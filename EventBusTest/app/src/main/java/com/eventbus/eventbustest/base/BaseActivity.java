@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.eventbus.eventbustest.R;
 import com.eventbus.eventbustest.components.progressDialog.ProgressHUD;
 import com.eventbus.eventbustest.entity.eventbus.BackGroundMessage;
-import com.eventbus.eventbustest.entity.eventbus.ServiceMessage;
-import com.eventbus.eventbustest.entity.eventbus.EventMessage;
+import com.eventbus.eventbustest.entity.eventbus.ResponseMessage;
+import com.eventbus.eventbustest.entity.eventbus.SpecialMessage;
 import com.eventbus.eventbustest.utils.EventBusUtils;
 import com.eventbus.eventbustest.utils.RequestTemplate;
+import com.eventbus.eventbustest.utils.T;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -18,7 +18,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.ButterKnife;
 
 /**
- * Created by Chad on 2017/5/24.
+ * Created by Chad .
  * Version 1.0
  */
 
@@ -46,13 +46,16 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param object
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OnEvent(EventMessage object) {
-        onNormEvent((EventMessage) object);
+    public void OnEvent(SpecialMessage object) {
+        T.LogInfo("OnEvent-SpecialMessage");
+
+        onNormEvent((SpecialMessage) object);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OnEvent(ServiceMessage object) {
-        onServiceEvent((ServiceMessage) object);
+    public void OnEvent(ResponseMessage object) {
+        T.LogInfo("OnEvent-ResponseMessage");
+        onServiceEvent((ResponseMessage) object);
     }
 
     /**
@@ -61,14 +64,15 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void OnBackGround(BackGroundMessage object) {
+        T.LogInfo("OnBackGround");
         onThreadEvent((BackGroundMessage) object);
     }
 
     protected abstract void onThreadEvent(BackGroundMessage object);
 
-    protected abstract void onServiceEvent(ServiceMessage object);
+    protected abstract void onServiceEvent(ResponseMessage object);
 
-    protected abstract void onNormEvent(EventMessage object);
+    protected abstract void onNormEvent(SpecialMessage object);
 
     protected void beforeSetContentView() {
 

@@ -1,16 +1,16 @@
 package com.eventbus.eventbustest.entity.eventbus;
 
 /**
- * Created by Chad on 2017/5/24.
+ * Created by Chad
  * Version 1.0
  */
 
-public class ServiceMessage {
+public class ResponseMessage {
     public String tag;
     public String msg;
     public boolean isSuccess;
 
-    public ServiceMessage(String tag, String msg, boolean isSuccess) {
+    public ResponseMessage(String tag, String msg, boolean isSuccess) {
         this.tag = tag;
         this.msg = msg;
         this.isSuccess = isSuccess;

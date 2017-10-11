@@ -1,7 +1,7 @@
 package com.eventbus.eventbustest.entity.eventbus;
 
 /**
- * Created by Chad on 2017/5/24.
+ * Created by Chad .
  * Version 1.0
  */
 

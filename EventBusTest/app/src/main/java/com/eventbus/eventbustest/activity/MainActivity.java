@@ -7,14 +7,10 @@ import android.widget.TextView;
 import com.eventbus.eventbustest.R;
 import com.eventbus.eventbustest.base.BaseActivity;
 import com.eventbus.eventbustest.entity.eventbus.BackGroundMessage;
-import com.eventbus.eventbustest.entity.eventbus.EventMessage;
-import com.eventbus.eventbustest.entity.eventbus.ServiceMessage;
-import com.eventbus.eventbustest.entity.weather.WeatherDao;
-import com.eventbus.eventbustest.utils.FastJsonUtils;
+import com.eventbus.eventbustest.entity.eventbus.SpecialMessage;
+import com.eventbus.eventbustest.entity.eventbus.ResponseMessage;
 import com.eventbus.eventbustest.utils.RequestTemplate;
 import com.eventbus.eventbustest.utils.T;
-
-import java.util.List;
 
 import butterknife.Bind;
 
@@ -40,6 +36,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onThreadEvent(BackGroundMessage object) {
+        T.LogInfo("onThreadEvent");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -47,7 +44,7 @@ public class MainActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        T.show("EventBus好美");
+                        T.show("wonderful");
                     }
                 });
             }
@@ -55,21 +52,23 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onServiceEvent(ServiceMessage sm) {
-        if(sm.isSuccess){
-            switch (sm.tag){
-                case RequestTemplate.WEATHER:
+    protected void onServiceEvent(ResponseMessage sm) {
+        switch (sm.tag){
+            case RequestTemplate.WEATHER:
+                if(sm.isSuccess){
                     textView.setText(sm.msg);
-                    break;
-            }
+                }else{
+                    textView.setText(sm.msg+"=========");
+                }
+                break;
         }
     }
 
     @Override
-    protected void onNormEvent(EventMessage em) {
+    protected void onNormEvent(SpecialMessage em) {
         switch (em.tag){
-            case EventMessage.NO_NETWORK:
-                textView.setText("我是主线程返回的");
+            case SpecialMessage.NO_NETWORK:
+                textView.setText("暂无可用网络");
                 break;
         }
     }

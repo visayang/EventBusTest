@@ -3,7 +3,7 @@ package com.eventbus.eventbustest.utils;
 import org.greenrobot.eventbus.EventBus;
 
 /**
- * Created by Chad on 2017/5/24.
+ * Created by Chad .
  * Version 1.0
  */
 
@@ -25,6 +25,7 @@ public class EventBusUtils {
     public static void post(Object message) {
         EventBusUtil.post(message);
     }
+
     public static void postSticky(Object message) {
         EventBusUtil.postSticky(message);
     }

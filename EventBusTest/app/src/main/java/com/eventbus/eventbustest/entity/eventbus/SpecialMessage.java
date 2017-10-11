@@ -3,11 +3,11 @@ package com.eventbus.eventbustest.entity.eventbus;
 import java.util.Objects;
 
 /**
- * Created by Chad on 2017/5/24.
+ * Created by Chad .
  * Version 1.0
  */
 
-public class EventMessage {
+public class SpecialMessage {
     /**
      * 无网络连接
      */
@@ -16,12 +16,12 @@ public class EventMessage {
     public int tag;
     public Object obj;
 
-    public EventMessage(int tag, Object obj) {
+    public SpecialMessage(int tag, Object obj) {
         this.tag = tag;
         this.obj = obj;
     }
 
-    public EventMessage(int tag) {
+    public SpecialMessage(int tag) {
         this.tag = tag;
     }
 }

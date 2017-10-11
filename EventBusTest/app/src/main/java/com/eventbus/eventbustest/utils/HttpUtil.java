@@ -1,13 +1,10 @@
 package com.eventbus.eventbustest.utils;
 
-import android.os.SystemClock;
-
 import com.alibaba.fastjson.JSON;
 import com.eventbus.eventbustest.base.BaseActivity;
 import com.eventbus.eventbustest.configs.ServiceConfig;
-import com.eventbus.eventbustest.entity.eventbus.BackGroundMessage;
-import com.eventbus.eventbustest.entity.eventbus.ServiceMessage;
-import com.eventbus.eventbustest.entity.eventbus.EventMessage;
+import com.eventbus.eventbustest.entity.eventbus.ResponseMessage;
+import com.eventbus.eventbustest.entity.eventbus.SpecialMessage;
 import com.eventbus.eventbustest.entity.result.WeatherResult;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.FormEncodingBuilder;
@@ -19,7 +16,7 @@ import java.io.IOException;
 
 
 /**
- * Created by Chad on 2017/5/24.
+ * Created by Chad .
  * Version 1.0
  */
 
@@ -43,7 +40,7 @@ public class HttpUtil {
     private void callServiceFace(int post, String action, final String method, FormEncodingBuilder params, final boolean showProgress) {
         if (Utils.checkNetwork() == ServiceConfig.NETWORK_NO_AVAILABLE) {
             //无网络可用
-            EventBusUtils.post(new EventMessage(EventMessage.NO_NETWORK));
+            EventBusUtils.post(new SpecialMessage(SpecialMessage.NO_NETWORK));
 //            new Thread(new Runnable() {
 //                @Override
 //                public void run() {
@@ -73,14 +70,14 @@ public class HttpUtil {
                 try {
                     WeatherResult result = JSON.parseObject(response.body().string(),WeatherResult.class);
                     if(result==null||result.success==0){
-                        postServiceErrorEvent(method, "服务器返回数据缺失");
-                        return;
+                        postServiceErrorEvent(method, "服务器请求数据异常");
+                    }else{
+                        //网络请求正常下的返回
+                        postServiceEvent(method, result);
                     }
-                    //网络请求正常下的返回
-                    postServiceEvent(method, result);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    postServiceErrorEvent(method, "服务器返回数据缺失");
+                    postServiceErrorEvent(method, "服务器请求数据异常");
                 }
             }
         });
@@ -88,15 +85,13 @@ public class HttpUtil {
 
     private void postServiceEvent(String method, WeatherResult result) {
         if (result.success == ServiceConfig.SUCCESS) {
-            EventBusUtils.post(new ServiceMessage(method, result.result, true));
+            EventBusUtils.post(new ResponseMessage(method, result.result, true));
         } else {
-//            T.show(result.getMsg());
-            EventBusUtils.post(new ServiceMessage(method, result.msg, false));
+            EventBusUtils.post(new ResponseMessage(method, result.msg, false));
         }
     }
 
     private void postServiceErrorEvent(String method, String msg) {
-        T.show(msg);
-        EventBusUtils.post(new ServiceMessage(method, msg, false));
+        EventBusUtils.post(new ResponseMessage(method, msg, false));
     }
 }

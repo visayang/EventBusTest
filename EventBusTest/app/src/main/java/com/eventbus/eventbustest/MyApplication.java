@@ -3,12 +3,12 @@ package com.eventbus.eventbustest;
 import android.app.Application;
 
 /**
- * Created by Administrator on 2017/5/23.
+ * Created by Administrator
  */
 
-public class SucApplication extends Application {
+public class MyApplication extends Application {
 
-    private static SucApplication mApplication;
+    private static MyApplication mApplication;
 
     @Override
     public void onCreate() {
@@ -16,7 +16,7 @@ public class SucApplication extends Application {
         mApplication = this;
     }
 
-    public static SucApplication getApplication() {
+    public static MyApplication getApplication() {
         return mApplication;
     }
 }
