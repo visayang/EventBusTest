@@ -27,8 +27,8 @@ compile'com.jakewharton:butterknife:7.0.1'
 * Created by Chad on 2017/5/24.
 * Version 1.0
 */
-public abstract classBaseActivityextendsAppCompatActivity {
-protectedRequestTemplatemRequest;
+public abstract class BaseActivity extends AppCompatActivity {
+protected RequestTemplate mRequest;
 @Override
 protected voidonCreate(@NullableBundle savedInstanceState) {
 super.onCreate(savedInstanceState);
@@ -36,7 +36,7 @@ beforeSetContentView();
 setContentView(getContentViewId());
 ButterKnife.bind(this);
 EventBusUtils.register(this);
-mRequest=newRequestTemplate(this);
+mRequest=new RequestTemplate(this);
 initProgressBar();
 initData();
 }
